@@ -1,0 +1,23 @@
+$breakPoint: 768;
+$spWidth: 640;
+$imgPath: "/ski/img/";
+$imgSlopes: "/ski/slopes/img/";
+$imgHotels: "/ski/hotels/img/";
+$imgFeature: "/ski/feature/img/";
+$white: #fff;
+$black: #333;
+$red: #dd5044;
+[data-toggle-cont] {
+  height: 0;
+  overflow: hidden;
+  transition: height .4s;
+}
+[data-tab-cont] {
+  display: none;
+	&.-active {
+    display: block;
+    animation-name: fadeInFromBottomPC;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+	}
+}

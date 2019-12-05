@@ -1,0 +1,15 @@
+.footer {
+	background: gray;
+	&__inner {
+		display: block;
+		width: 1000px;
+		margin: 0 auto;
+		padding: 20px 0;
+		content: '';
+	}
+	&__txt {
+		font-size: 16px;
+		color: white;
+		text-align: center;
+	}
+}

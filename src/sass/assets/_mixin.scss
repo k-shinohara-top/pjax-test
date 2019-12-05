@@ -1,0 +1,219 @@
+// pxからvwに変換
+@function pxToVw($pxValue) {
+  @return (($pxValue / $spWidth) * 100) + vw;
+}
+// ルートを返す
+@function sqrt($r) {
+  $x0: 1;
+  $x1: $x0;
+  @for $i from 1 through 10 {
+    $x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0);
+    $x0: $x1;
+  }
+  @return $x1;
+}
+// フォント指定
+@mixin fontFamily($name) {
+  @if $name == meiryo {
+    font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', Osaka, sans-serif;
+  }
+  @if $name == hiragino {
+    font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+  }
+  @if $name == mincho {
+    font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  }
+  @if $name == oswald {
+    font-family: 'Oswald', sans-serif;
+  }
+  @else {
+    @warn "error";
+  }
+}
+// くの字型の矢印（山形袖章）
+@mixin chevron($dir, $size, $thick, $color) {
+  display: block;
+  width: $size;
+  height: $size;
+  border-top: $thick solid $color;
+  border-right: $thick solid $color;
+  transform-origin: 100% 0;
+  content: "";
+  $top: -45deg;
+  $right: 45deg;
+  $bottom: 135deg;
+  $left: -135deg;
+  @if $dir == top {
+    -webkit-transform: rotate($top);
+    transform: rotate($top);
+  }
+  @if $dir == right {
+    -webkit-transform: rotate($right);
+    transform: rotate($right);
+  }
+  @if $dir == bottom {
+    -webkit-transform: rotate($bottom);
+    transform: rotate($bottom);
+  }
+  @if $dir == left {
+    -webkit-transform: rotate($left);
+    transform: rotate($left);
+  }
+  @else {
+    @warn "error";
+  }
+}
+// dotted の間隔が調節可能な border
+@mixin dotted-border($dir, $size, $space, $color) {
+  @if $dir == top {
+    background-image: -webkit-gradient(linear, left top, right top, from($color), color-stop($size, $color), color-stop($size, transparent), color-stop($space, transparent));
+    background-image: linear-gradient(to right, $color, $color $size, transparent $size, transparent $space);
+    background-size: calc(#{$space} + #{$size}) $size;
+    background-position: top;
+    background-repeat: repeat-x;
+  }
+  @if $dir == right {
+    background-image: -webkit-gradient(linear, left top, left bottom, from($color), color-stop($size, $color), color-stop($size, transparent), color-stop($space, transparent));
+    background-image: linear-gradient(to bottom, $color, $color $size, transparent $size, transparent $space);
+    background-size: $size calc(#{$space} + #{$size});
+    background-position: right;
+    background-repeat: repeat-y;
+  }
+  @if $dir == bottom {
+    background-image: -webkit-gradient(linear, left top, right top, from($color), color-stop($size, $color), color-stop($size, transparent), color-stop($space, transparent));
+    background-image: linear-gradient(to right, $color, $color $size, transparent $size, transparent $space);
+    background-size: calc(#{$space} + #{$size}) $size;
+    background-position: bottom;
+    background-repeat: repeat-x;
+  }
+  @if $dir == left {
+    background-image: -webkit-gradient(linear, left top, left bottom, from($color), color-stop($size, $color), color-stop($size, transparent), color-stop($space, transparent));
+    background-image: linear-gradient(to bottom, $color, $color $size, transparent $size, transparent $space);
+    background-size: $size calc(#{$space} + #{$size});
+    background-position: left;
+    background-repeat: repeat-y;
+  }
+  @else {
+    @warn "error";
+  }
+}
+// 楕円
+@mixin ellipse($width, $height, $color) {
+  width: $width;
+  height: $height;
+  background: $color;
+  border-radius: 50%;
+  content: '';
+}
+// select のスタイルを無効化
+@mixin selectNullify {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background: none transparent;
+  font-size: inherit;
+  color: inherit;
+  vertical-align: middle;
+  outline:none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  &::-ms-expand {
+    display: none;
+  }
+}
+// input のスタイルを無効化
+@mixin inputNullify {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  outline: none;
+  background: none;
+  -webkit-appearance: none;
+}
+// textarea のスタイルを無効化
+@mixin textareaNullify {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  resize: none;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+// button のスタイルを無効化
+@mixin buttonNullify {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+// カラム表示
+@mixin column($num, $space) {
+  flex-basis: calc(100% / #{$num} - #{$space} * (#{$num - 1} / #{$num}) - .01px);
+  max-width: calc(100% / #{$num} - #{$space} * (#{$num - 1} / #{$num}) - .01px);
+  &:not(:nth-child(#{$num}n)) {
+    margin-right: $space;
+  }
+}
+// リストなどの最後列にスタイルを適用する
+@mixin lastRow($column) {
+  &:nth-child(#{$column}n+1):nth-last-child(-n+#{$column}),
+  &:nth-child(#{$column}n+1):nth-last-child(-n+#{$column}) ~ & {
+    @content;
+  }
+}
+// 幅を基準にアスペクト比を維持したまま拡大または縮小
+@mixin scaling($width, $ratio) {
+  width: $width;
+  height: calc(#{$width} / #{$ratio});
+}
+// カスタムテキストシャドウ
+@mixin textShadow($color, $thick) {
+  text-shadow:
+    $color #{$thick} 0 #{$thick}, $color -#{$thick} 0 #{$thick},
+    $color 0 -#{$thick} #{$thick}, $color -#{$thick} 0 #{$thick},
+    $color #{$thick} #{$thick} #{$thick}, $color -#{$thick} #{$thick} #{$thick},
+    $color #{$thick} -#{$thick} #{$thick}, $color -#{$thick} -#{$thick} #{$thick},
+    $color calc(#{$thick} / 2) #{$thick} #{$thick}, $color calc(-#{$thick} / 2) #{$thick} #{$thick},
+    $color calc(#{$thick} / 2) -#{$thick} #{$thick}, $color calc(-#{$thick} / 2) -#{$thick} #{$thick},
+    $color #{$thick} calc(#{$thick} / 2) #{$thick}, $color -#{$thick} calc(#{$thick} / 2) #{$thick},
+    $color #{$thick} calc(-#{$thick} / 2) #{$thick}, $color -#{$thick} calc(-#{$thick} / 2) #{$thick},
+    $color calc(#{$thick} / 2) calc(#{$thick} / 2) #{$thick}, $color calc(-#{$thick} / 2) calc(#{$thick} / 2) #{$thick},
+    $color calc(#{$thick} / 2) calc(-#{$thick} / 2) #{$thick}, $color calc(-#{$thick} / 2) calc(-#{$thick} / 2) #{$thick};
+}
+@mixin triangle($dir, $width, $height, $color) {
+  width: 0;
+  height: 0;
+  border: 0 solid transparent;
+  @if $dir == top {
+    border-right-width: calc(#{$width} / 2);
+    border-left-width: calc(#{$width} / 2);
+    border-bottom: #{$height} solid $color;
+  }
+  @if $dir == right {
+    border-top-width: calc(#{$height} / 2);
+    border-bottom-width: calc(#{$height} / 2);
+    border-left: #{$width} solid $color;
+  }
+  @if $dir == bottom {
+    border-right-width: calc(#{$width} / 2);
+    border-left-width: calc(#{$width} / 2);
+    border-top: #{$height} solid $color;
+  }
+  @if $dir == left {
+    border-top-width: calc(#{$height} / 2);
+    border-bottom-width: calc(#{$height} / 2);
+    border-right: #{$width} solid $color;
+  }
+  content: '';
+}

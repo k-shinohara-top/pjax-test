@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width">
+	<title>pjax-test</title>
+	<meta name="description" content="">
+	<link rel="icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<nav class="nav">
+			<div class="nav__inner">
+				<ul class="nav__list">
+					<li class="nav__item">
+						<a href="/" class="nav__link">HOME</a>
+					</li>
+					<li class="nav__item">
+						<a href="/page-1/" class="nav__link">ページ1</a>
+					</li>
+					<li class="nav__item">
+						<a href="/page-2/" class="nav__link">ページ2</a>
+					</li>
+					<li class="nav__item">
+						<a href="/page-3/" class="nav__link">ページ3</a>
+					</li>
+					<li class="nav__item">
+						<a href="/page-4/" class="nav__link">ページ4</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main data-barba="wrapper">
+		<div class="cont" data-barba="container" data-barba-namespace="page-3">
+			<div class="cont__inner">
+				<h1 class="cont__h1">ページ3</h1>
+				<p class="cont__desc">テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
+			</div>
+		</div>
+	</main>
+	<footer class="footer">
+		<div class="footer__inner">
+			<p class="footer__txt">フッター</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="https://unpkg.com/@barba/css"></script>
+	<script type="text/javascript" src="https://unpkg.com/@barba/core"></script>
+	<script type="text/javascript" src="/js/scripts-dist.js"></script>
+</body>
+</html>

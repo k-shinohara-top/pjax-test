@@ -1,0 +1,26 @@
+.nav {
+	&__inner {
+		background: gray;
+	}
+	&__list {
+		display: flex;
+		justify-content: space-between;
+		width: 800px;
+		margin: 0 auto;
+	}
+	&__item {
+		flex-grow: 2;
+	}
+	&__link {
+		display: block;
+		padding: 15px;
+		font-size: 22px;
+		color: white;
+		text-align: center;
+		text-decoration: none;
+		transition: background .2s;
+		&:hover {
+			background: darken(gray, 10%);
+		}
+	}
+}
